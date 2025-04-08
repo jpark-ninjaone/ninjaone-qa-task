@@ -3,8 +3,8 @@ Given a user navigates to the login page
 And inspects the page
 Then the page will contain 
     link header with title 'ninjaOne', 
-    email input, 
-    passwor input, 
+    email input field, 
+    password input field, 
     checkbox option to 'Keep me signed in', 
     'Sign in' button, 
     'Forgot your password?' link, 
@@ -13,7 +13,7 @@ Then the page will contain
     'Contact us' link, 
     And CAPTCHA icon
 
-###login positive tests
+###login page positive tests
 Given a user clicks on the ninjaOne header, then the user will be taken to the login page
 
 Given a user enters a valid email and password 
@@ -43,7 +43,7 @@ Then the user will be taken to Google's Privacy Policy page
 Given a user clicks on the terms link on CAPTCHA
 Then the user will be taken to Google's Terms of Service page
 
-###login negative tests
+###login page negative tests
 Given a user enters an invalid email and password 
 And clicks on 'Sign In'
 Then the login will fail
@@ -64,7 +64,7 @@ Given a user enters an invalid email and password
 And repeatedly clicks on 'Sign In'
 Then upon the next valid login attempt with valid email and password, login will require CAPTCHA verification
 
-###login security tests
+###login page security tests
 Given a user enters a SQL command to any input fields 
 And clicks on 'Sign In'
 Then the login will fail the query will fail to run
@@ -77,14 +77,14 @@ Given a user enters a valid email and password
 And clicks on 'Sign In'
 Then upon login the password should be encrypted in transit
 
-###login load/performance tests
+###login page load/performance tests
 Given high concurrent login attempts with valid emails and passwords
 Then the render response time should be consistent and the server should be able handle all requests without performance issue
 
 Given extreme concurrent login attempts with valid emails and passwords beyond system resource limit
 Then the system should handle/fail the traffic gracefully without exposing any vulnerabilities
 
-###login exploratory tests
+###login page exploratory tests
 Given a user navigates to the login page on major browsers Chrome, Firefox, Safari, and Edge
 Then the page will render successfully with all elements correctly displayed
 
@@ -101,4 +101,49 @@ Then the login will fail due to case sensitivity
 Given a user enters an invalid email or/and password repeatedly
 Then the system will trigger a mechanism to prevent potential harm (ex. trigger exponential backoff on subsequent login attempts, user lockout, etc) 
 
-###forgot password tests
+###forgot password page elements
+Given a user lands on the forgot password page
+Then the page will contain 
+    link header with title 'ninjaOne', 
+    'Verify Identity By' dropdown, 
+    email input field, 
+    And 'Send' button
+
+Given a user is on the forgot password page
+And clicks on the ninjaOne header
+Then the user will be taken back to the login page
+
+Given a user is on the forgot password page
+And selects 'Text' from the 'Verify Identity By' dropdown
+Then the page will contain an additional 'Last four digits of your phone number' input field
+
+###forgot password page positive tests
+Given a user selects 'Email' from the 'Verify Identity By' dropdown
+And enters a valid email address in the email input field
+When the user clicks on 'Send' button
+Then the reset password email will be sent to the email address
+
+Given a user selects 'Text' from the 'Verify Identity By' dropdown
+And enters a valid email address in the email input field
+And enters a valid phone number
+When the user clicks on 'Send' button 
+Then the user will be taken to reset password page
+
+###forgot password page negative tests
+Given a user selects 'Email' from the 'Verify Identity By' dropdown
+And enters an invalid email address in the email input field
+When the user clicks on 'Send' button
+Then the reset password email will fail to send due to validation error
+
+Given a user selects 'Email' from the 'Verify Identity By' dropdown
+And leaves the email input field empty
+When the user clicks on 'Send' button
+Then the reset password email will fail to send due to validation error
+
+Given a user selects 'Email' from the 'Verify Identity By' dropdown
+And enters an unregistered email address in the email input field
+When the user clicks on 'Send' button
+Then the reset password email will fail with an appropriate error that indicates the email does not exist in the system
+
+###registration page elements
+
