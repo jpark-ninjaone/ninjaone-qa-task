@@ -7,7 +7,7 @@ describe('NinjaOne Login Page Tests', () => {
     cy.title().should('include', 'NinjaOne');
   });
 
-  it('Verifies key elements are present', () => {
+  it('Verifies page elements are present', () => {
     cy.get('input[name="email"]').should('be.visible');
     cy.get('input[name="password"]').should('be.visible');
     cy.get('button[type="submit"].btn.btn-primary').should('be.visible').and('contain', 'Sign in');

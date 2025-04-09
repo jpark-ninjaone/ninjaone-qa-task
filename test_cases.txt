@@ -1,10 +1,9 @@
 ###login page elements
 Given a user navigates to the login page
-And inspects the page
 Then the page will contain 
     link header with title 'ninjaOne', 
-    email input field, 
-    password input field, 
+    'Email' input field, 
+    'Password' input field, 
     checkbox option to 'Keep me signed in', 
     'Sign in' button, 
     'Forgot your password?' link, 
@@ -101,6 +100,10 @@ Then the login will fail due to case sensitivity
 Given a user enters an invalid email or/and password repeatedly
 Then the system will trigger a mechanism to prevent potential harm (ex. trigger exponential backoff on subsequent login attempts, user lockout, etc) 
 
+Given a user enters a long sequence of characters to any login input field(s)
+And clicks on 'Sign In'
+Then the system will throw a validation error with an appropriate message on character limit
+
 ###forgot password page elements
 Given a user lands on the forgot password page
 Then the page will contain 
@@ -110,14 +113,14 @@ Then the page will contain
     And 'Send' button
 
 Given a user is on the forgot password page
-And clicks on the ninjaOne header
-Then the user will be taken back to the login page
-
-Given a user is on the forgot password page
 And selects 'Text' from the 'Verify Identity By' dropdown
 Then the page will contain an additional 'Last four digits of your phone number' input field
 
 ###forgot password page positive tests
+Given a user is on the forgot password page
+And clicks on the ninjaOne header
+Then the user will be taken back to the login page
+
 Given a user selects 'Email' from the 'Verify Identity By' dropdown
 And enters a valid email address in the email input field
 When the user clicks on 'Send' button
@@ -146,4 +149,47 @@ When the user clicks on 'Send' button
 Then the reset password email will fail with an appropriate error that indicates the email does not exist in the system
 
 ###registration page elements
+Given a user lands on the registration page
+Then the page will contain 
+    link header with title 'ninjaOne', 
+    'Organization' input field,
+    'First Name' input field, 
+    'Last Name' input field, 
+    'Email' input field, 
+    'Password' input field, 
+    'Verify Password' input field, 
+    'Cell Phone' input field with an embedded dropdown that lists all countries
+    'Forgot your password?' link, 
+    'Language' dropdown, 
+    'Register' button, 
+    And 'Missing activation email?' link for reactivation
+
+###registration page positive tests
+Given a user is on the registration page
+And clicks on the ninjaOne header
+Then the user will be taken back to the login page
+
+Given a user submits registration with valid values in all input fields with a selected Language
+Then registration will succeed and the user will receive a confirmation email to the provided email address in the selected Language
+
+Given a user clicks 'Missing activation email?'
+Then the user will be taken to the reactivation page
+
+###registration page negative tests
+Given a user leaves any field blank
+And submits registration
+Then registration will fail with an appropriate validation error message
+
+Given a user enters a valid password
+And enters a different password in 'Verify Password' input field
+Then registration will fail with an appropriate validation error message
+
+Given a user enters an invalid phone number
+Then registration will fail with an appropriate validation error message
+
+Given a user enters an invalid email address
+Then registration will fail with an appropriate validation error message
+
+
+
 
