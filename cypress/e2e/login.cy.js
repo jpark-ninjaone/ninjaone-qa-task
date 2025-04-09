@@ -12,6 +12,8 @@ describe('NinjaOne Login Page Tests', () => {
     cy.get('input[name="password"]').should('be.visible');
     cy.get('button[type="submit"].btn.btn-primary').should('be.visible').and('contain', 'Sign in');
     cy.get('a[href="#/resetPassword"]').should('be.visible').and('contain', 'Forgot your password?');
+    cy.get('a[href="#/register"]').should('be.visible').and('contain', 'Do not have an account?');
+    cy.get('a[href="https://resources.ninjarmm.com/webapp/app/ninja-contact.html"]').should('be.visible').and('contain', 'Contact us');
   });
 
   // Valid test credentials created manually
