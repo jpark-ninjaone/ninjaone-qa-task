@@ -70,4 +70,14 @@ describe('NinjaOne Login Page Tests', () => {
     // Assert the browser navigates to the registration page
     cy.url().should('include', '/auth/#/register');
   });
+
+  it('Tests the "Contact us" link navigation', () => {
+    cy.get('a[href="https://resources.ninjarmm.com/webapp/app/ninja-contact.html"]')
+    .should('have.attr', 'target', '_blank')
+    .invoke('removeAttr', 'target') // remove target attr to force open in the same tab due to cypress limitation
+    .click()
+    cy.origin('https://resources.ninjarmm.com/webapp/app/ninja-contact.html', () => {
+      cy.url().should('eq', 'https://resources.ninjarmm.com/webapp/app/ninja-contact.html');
+    })
+  });
 });
