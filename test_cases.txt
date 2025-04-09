@@ -182,12 +182,15 @@ Then registration will fail with an appropriate validation error message
 
 Given a user enters a valid password
 And enters a different password in 'Verify Password' input field
+And submits registration
 Then registration will fail with an appropriate validation error message
 
 Given a user enters an invalid phone number
+And submits registration
 Then registration will fail with an appropriate validation error message
 
 Given a user enters an invalid email address
+And submits registration
 Then registration will fail with an appropriate validation error message
 
 
